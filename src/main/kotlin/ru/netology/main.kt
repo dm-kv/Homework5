@@ -8,7 +8,7 @@ data class Likes (
 )
 
 data class Post(
-    val likes: Int,
+    val likes: Likes,
     var id: Int,
     val date: Int,
     val fromId: Int,
@@ -16,32 +16,35 @@ data class Post(
     val postType: String,
     val signerId: Int,
     val canPin: Boolean,
-    var prId: Int = 0
-)
+    )
 
 object WallService {
+
     private var posts = emptyArray<Post>()
+
+    fun clear() {
+        posts = emptyArray()
+    }
+    private var prId: Int = 1
+
     fun add(post: Post): Post {
-        post.id = post.prId
+        post.id = prId
         posts += post
-        post.prId += 1
+        prId += 1
         return posts.last()
     }
 
-    fun update(post: Post): Boolean {
-        for ((index, post1) in posts.withIndex()) {
+    fun update(post1: Post): Boolean {
+        for ((index, post) in posts.withIndex()) {
             if (post1.id == post.id) {
-                posts[index] = post.copy()
+                posts[index] = post1.copy()
                 return true
             }
+
         }
         return false
     }
 }
 
-fun main() {
-    val post = Post(0, 25, 50,66, "text", "fast", 45, true)
-    val likes = Likes(0, true, true, true)
-}
 
 
