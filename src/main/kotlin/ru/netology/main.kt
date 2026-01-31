@@ -21,16 +21,15 @@ data class Post(
 object WallService {
 
     private var posts = emptyArray<Post>()
+    private var prId: Int = 1
 
     fun clear() {
         posts = emptyArray()
+        prId = 1
     }
-    private var prId: Int = 1
 
     fun add(post: Post): Post {
-        post.id = prId
-        posts += post
-        prId += 1
+        posts += post.copy(id = prId++)
         return posts.last()
     }
 
