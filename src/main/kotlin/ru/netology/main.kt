@@ -10,13 +10,13 @@ data class Likes (
 data class Post(
     val likes: Likes,
     var id: Int,
-    val date: Int?,
+    val date: Int,
     val fromId: Int,
-    val text: String?,
+    val text: String,
     val postType: String,
     val signerId: Int,
     val canPin: Boolean,
-    )
+)
 
 object WallService {
 
@@ -39,8 +39,8 @@ object WallService {
                 posts[index] = post1.copy()
                 return true
             }
+
         }
         return false
     }
 }
-

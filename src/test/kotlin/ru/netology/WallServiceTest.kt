@@ -42,9 +42,9 @@ class WallServiceTest {
                 canPublish = true
             ),
             id = 1,
-            date = null,
+            date = 2,
             fromId = 3,
-            text = null,
+            text = "text",
             postType = "new",
             signerId = 123,
             canPin = true
@@ -57,7 +57,7 @@ class WallServiceTest {
                 canPublish = true
             ),
             id = 1,
-            date = 50,
+            date = 20,
             fromId = 30,
             text = "text text",
             postType = "new",
@@ -79,9 +79,9 @@ class WallServiceTest {
                 canPublish = true
             ),
             id = 1,
-            date = null,
+            date = 2,
             fromId = 3,
-            text = null,
+            text = "text",
             postType = "new",
             signerId = 123,
             canPin = true
