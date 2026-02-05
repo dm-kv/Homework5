@@ -61,7 +61,7 @@ class Photo(
     val text: String,
     val date: Int,
 )
-class PhotoAttachment(val photo: Photo) : Attachment()
+class PhotoAttachment(val type: Photo, val photo: Photo) : Attachment()
 
 class Audio(
     val id: Int,
@@ -70,7 +70,7 @@ class Audio(
     val title: String,
     val duration: Int,
 )
-class AudioAttachment(val audio: Audio) : Attachment()
+class AudioAttachment(val type: Audio, val audio: Audio) : Attachment()
 
 class Video(
     val id: Int,
@@ -79,7 +79,7 @@ class Video(
     val description: String,
     val duration: Int,
 )
-class VideoAttachment(val video: Video) : Attachment()
+class VideoAttachment(val type: Video, val video: Video) : Attachment()
 
 
 object WallService {
