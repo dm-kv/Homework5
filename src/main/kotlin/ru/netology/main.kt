@@ -1,5 +1,8 @@
 package ru.netology
 
+abstract class Attachment(open val type: String) {
+}
+
 data class Likes (
     val count: Int,
     val userLikes: Boolean,
@@ -10,13 +13,74 @@ data class Likes (
 data class Post(
     val likes: Likes,
     var id: Int,
-    val date: Int,
+    val date: Int?,
     val fromId: Int,
-    val text: String,
+    val text: String?,
     val postType: String,
     val signerId: Int,
     val canPin: Boolean,
+    val attachments: Array<Attachment> = emptyArray()
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Post
+
+        if (id != other.id) return false
+        if (date != other.date) return false
+        if (fromId != other.fromId) return false
+        if (signerId != other.signerId) return false
+        if (canPin != other.canPin) return false
+        if (likes != other.likes) return false
+        if (text != other.text) return false
+        if (postType != other.postType) return false
+        if (!attachments.contentEquals(other.attachments)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id
+        result = 31 * result + (date ?: 0)
+        result = 31 * result + fromId
+        result = 31 * result + signerId
+        result = 31 * result + canPin.hashCode()
+        result = 31 * result + likes.hashCode()
+        result = 31 * result + (text?.hashCode() ?: 0)
+        result = 31 * result + postType.hashCode()
+        result = 31 * result + attachments.contentHashCode()
+        return result
+    }
+}
+
+
+class Photo(
+    val id: Int,
+    val albumId: Int,
+    val userId: Int,
+    val text: String,
+    val date: Int,
 )
+class PhotoAttachment(override val type: String = "photo", val photo: Photo) : Attachment(type)
+
+class Audio(
+    val id: Int,
+    val ownerId: Int,
+    val artist: String,
+    val title: String,
+    val duration: Int,
+)
+class AudioAttachment(override val type: String = "audio", val audio: Audio) : Attachment(type)
+
+class Video(
+    val id: Int,
+    val ownerId: Int,
+    val title: String,
+    val description: String,
+    val duration: Int,
+)
+class VideoAttachment(override val type: String = "video", val video: Video) : Attachment(type)
 
 object WallService {
 
@@ -39,7 +103,6 @@ object WallService {
                 posts[index] = post1.copy()
                 return true
             }
-
         }
         return false
     }
