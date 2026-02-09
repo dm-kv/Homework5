@@ -1,6 +1,6 @@
 package ru.netology
 
-abstract class Attachment() {
+abstract class Attachment(open val type: String) {
 }
 
 data class Likes (
@@ -54,6 +54,7 @@ data class Post(
     }
 }
 
+
 class Photo(
     val id: Int,
     val albumId: Int,
@@ -61,7 +62,7 @@ class Photo(
     val text: String,
     val date: Int,
 )
-class PhotoAttachment(val type: Photo, val photo: Photo) : Attachment()
+class PhotoAttachment(override val type: String = "photo", val photo: Photo) : Attachment(type)
 
 class Audio(
     val id: Int,
@@ -70,7 +71,7 @@ class Audio(
     val title: String,
     val duration: Int,
 )
-class AudioAttachment(val type: Audio, val audio: Audio) : Attachment()
+class AudioAttachment(override val type: String = "audio", val audio: Audio) : Attachment(type)
 
 class Video(
     val id: Int,
@@ -79,8 +80,7 @@ class Video(
     val description: String,
     val duration: Int,
 )
-class VideoAttachment(val type: Video, val video: Video) : Attachment()
-
+class VideoAttachment(override val type: String = "video", val video: Video) : Attachment(type)
 
 object WallService {
 
